@@ -10,11 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!wishPrompt) return;
 
+  // Frases animadas traducidas al español
   const wishPrompts = [
-    "Before we finish...",
-    "Close your eyes.",
-    "Make a birthday wish.",
-    "When you're ready..."
+    "Antes de terminar...",
+    "Cierra los ojos.",
+    "Pide un deseo de cumpleaños.",
+    "Cuando estés lista..."
   ];
 
   let promptIndex = 0;
@@ -109,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     let lastX = null, lastY = null, lastZ = null;
     let shakeCounter = 0;
-    const SHAKE_THRESHOLD = 10.5; // Lowered from 14 for better motion sensitivity/reliability
+    const SHAKE_THRESHOLD = 10.5;
 
     const handleMotion = (event) => {
       if (isBlownOut) return;
@@ -131,7 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
       let deltaY = Math.abs(y - lastY);
       let deltaZ = Math.abs(z - lastZ);
 
-      // Verify movement delta on multiple axes to register a genuine shake
       if ((deltaX > SHAKE_THRESHOLD && deltaY > SHAKE_THRESHOLD) || 
           (deltaX > SHAKE_THRESHOLD && deltaZ > SHAKE_THRESHOLD) || 
           (deltaY > SHAKE_THRESHOLD && deltaZ > SHAKE_THRESHOLD)) {
@@ -207,7 +207,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const particle = document.createElement("span");
       particle.className = "wish-particle";
 
-      // Coordinate matching the tip of the wick (centered, 45px down)
       particle.style.left = `calc(50% + ${Math.random() * 20 - 10}px)`;
       particle.style.top = `calc(45px + ${Math.random() * 20 - 10}px)`;
 
@@ -223,7 +222,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       container.appendChild(particle);
 
-      // Cleanup
       setTimeout(() => {
         particle.remove();
       }, 2500);
