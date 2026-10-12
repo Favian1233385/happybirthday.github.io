@@ -63,13 +63,11 @@ document.addEventListener("DOMContentLoaded", () => {
     progressBarContainer.innerHTML = "";
 
     timelineData.forEach((item, index) => {
-      // 1. Create progress segment
       const segment = document.createElement("div");
       segment.className = "progress-segment";
       segment.innerHTML = `<span class="progress-fill"></span>`;
       progressBarContainer.appendChild(segment);
 
-      // 2. Create slide
       const slide = document.createElement("article");
       slide.className = "story-slide";
       if (index === 0) slide.classList.add("is-active");
@@ -86,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ${index === timelineData.length - 1 ? `
             <div class="final-action-card">
               <button id="openLetterBtn" class="primary-button" type="button" style="display: inline-flex; align-items: center; justify-content: center; margin: 1.5rem auto 0;">
-                Read the Letter 
+                Leer la carta 
                 <svg viewBox="0 0 24 24" fill="currentColor" style="width: 1.15rem; height: 1.15rem; margin-left: 0.4rem; display: inline-block; vertical-align: middle;"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
               </button>
             </div>
@@ -98,7 +96,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Initial render
   renderStories();
 
   function syncProgressBars() {
@@ -152,7 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Animation Loop for Progress Indicator
   function updateProgress(timestamp) {
     if (!lastFrameTime) lastFrameTime = timestamp;
     const delta = timestamp - lastFrameTime;
@@ -173,11 +169,9 @@ document.addEventListener("DOMContentLoaded", () => {
     animationId = requestAnimationFrame(updateProgress);
   }
 
-  // Start story loop
   lastFrameTime = performance.now();
   animationId = requestAnimationFrame(updateProgress);
 
-  // Tap-to-Navigate controls
   if (tapLeft && tapRight) {
     tapLeft.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -190,7 +184,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Pause on Hold / Touch controls
   const pauseHandler = () => { isPaused = true; };
   const resumeHandler = () => { isPaused = false; };
 
@@ -202,7 +195,6 @@ document.addEventListener("DOMContentLoaded", () => {
   storiesViewer.addEventListener("touchend", resumeHandler, { passive: true });
   storiesViewer.addEventListener("touchcancel", resumeHandler, { passive: true });
 
-  // Swipe gesture support
   let touchStartX = 0;
   let touchStartY = 0;
   storiesViewer.addEventListener("touchstart", (e) => {
@@ -225,14 +217,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }, { passive: true });
 
-  // Click handler for Open Letter button inside last slide
   slidesWrapper.addEventListener("click", (e) => {
     if (e.target && e.target.id === "openLetterBtn") {
       goToLetter();
     }
   });
 
-  // Tutorial overlay automatic fade out
   if (storiesTutorial) {
     setTimeout(() => {
       storiesTutorial.classList.add("is-hidden");
@@ -240,25 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 2800);
   }
 
-  // Global background music mute controls (disabled on early chapters)
   if (musicToggleBtn) {
     musicToggleBtn.style.display = "none";
-  }
-
-  function updateMuteIcon(muted) {
-    if (!musicToggleBtn) return;
-    if (muted) {
-      musicToggleBtn.innerHTML = `
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
-        </svg>
-      `;
-    } else {
-      musicToggleBtn.innerHTML = `
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-        </svg>
-      `;
-    }
   }
 });
