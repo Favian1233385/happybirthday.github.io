@@ -6,9 +6,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!endingLine) return;
 
+  // Frases de respaldo actualizadas al español (también lee de config.js)
   const endingLines = (typeof BirthdayConfig !== "undefined" && BirthdayConfig.endingLines)
     ? BirthdayConfig.endingLines
-    : ["One last thing...", "Thank you for existing.", "Happy Birthday ❤️"];
+    : ["Una última cosa...", "Gracias por existir.", "¡Feliz Cumpleaños! ❤️"];
 
   // 1. Spawns Twinkling Stars
   function spawnStars() {
