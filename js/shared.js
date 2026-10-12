@@ -22,14 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(ambientLayer);
   }
 
-  // 3. Inject Progress Indicator (for chapters 1 to 6)
+  // 3. Inject Progress Indicator (para capítulos del 1 al 6, en español)
   const mainJourney = document.querySelector("main.journey");
   if (mainJourney) {
     const chapter = mainJourney.getAttribute("data-chapter");
     if (chapter && parseInt(chapter) >= 1 && parseInt(chapter) <= 6) {
       const progressPill = document.createElement("div");
       progressPill.className = "progress-indicator";
-      progressPill.innerHTML = `Chapter ${chapter} of 7 <span aria-hidden="true" class="progress-heart-container" style="color: var(--pink); display: inline-flex; align-items: center; margin-left: 0.3rem; vertical-align: middle; width: 0.95rem; height: 0.95rem;"><svg viewBox="0 0 24 24" fill="currentColor" style="width: 100%; height: 100%;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>`;
+      progressPill.innerHTML = `Capítulo ${chapter} de 7 <span aria-hidden="true" class="progress-heart-container" style="color: var(--pink); display: inline-flex; align-items: center; margin-left: 0.3rem; vertical-align: middle; width: 0.95rem; height: 0.95rem;"><svg viewBox="0 0 24 24" fill="currentColor" style="width: 100%; height: 100%;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>`;
       document.body.appendChild(progressPill);
     }
   }
@@ -54,9 +54,9 @@ function createAmbientParticles() {
   const particleLayer = document.getElementById("particleLayer");
   if (!particleLayer) return;
 
-  const symbols = ["✦", "♡", "·", "✧"]; // Removed standard colorful emoji ❤️, replaced with outlines/sparkles!
+  const symbols = ["✦", "♡", "·", "✧"];
   const fragment = document.createDocumentFragment();
-  const count = window.innerWidth < 600 ? 18 : 35; // Optimize particle count for mobile performance
+  const count = window.innerWidth < 600 ? 18 : 35;
 
   for (let index = 0; index < count; index += 1) {
     const particle = document.createElement("span");
@@ -144,7 +144,7 @@ function initBackgroundMusic() {
     const hasIncreased = sessionStorage.getItem("volumeIncreased") === "true";
     if (audio.currentTime >= 17 && !hasIncreased) {
       sessionStorage.setItem("volumeIncreased", "true");
-      fadeVolume(0.15, 0.75, 2500); // Fades volume from 15% to 75% over 2.5s
+      fadeVolume(0.15, 0.75, 2500);
     }
   });
 }
@@ -159,7 +159,6 @@ function startGlobalMusic() {
 function attemptPlayMusic(forceWait = false) {
   if (!audioInstance) return;
 
-  // Enhance iOS compatibility configurations
   audioInstance.setAttribute("playsinline", "true");
   audioInstance.setAttribute("webkit-playsinline", "true");
 
@@ -171,7 +170,6 @@ function attemptPlayMusic(forceWait = false) {
       })
       .catch((error) => {
         console.log("Playback attempt blocked: ", error.message);
-        // Playback failed, listeners remain attached to retry on next user action
       });
   };
 
@@ -197,7 +195,6 @@ function attemptPlayMusic(forceWait = false) {
     console.log("Audio waiting for first interaction gesture.");
     addUnlockListeners();
   } else {
-    // Attempt playing immediately (standard unlock restore)
     audioInstance.play()
       .then(() => {
         console.log("Audio played immediately successfully!");
@@ -226,7 +223,7 @@ function navigateWithTransition(url) {
   }, 780);
 }
 
-// Volume fade transitions (for playing voice notes cleanly)
+// Volume fade transitions
 function fadeOutMusic(duration = 1000) {
   if (!audioInstance) return;
   const startVolume = audioInstance.volume;
@@ -272,7 +269,6 @@ function fadeInMusic(targetVolume, duration = 1000) {
   }).catch(e => console.log(e));
 }
 
-// Volume fade progression helper (linear transition between two levels)
 function fadeVolume(start, end, duration = 2500) {
   if (!audioInstance) return;
   const interval = 50;
